@@ -16,6 +16,8 @@ namespace Sistema_Sinapse
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Form1 principalForm = new Form1();
+            principalForm.Icon = new System.Drawing.Icon("C:\\Users\\Administrator\\source\\repos\\Sistema_Sinapse\\Sistema_Sinapse\\cerebro.ico");
             Application.Run(new Form1());
         }
     }
