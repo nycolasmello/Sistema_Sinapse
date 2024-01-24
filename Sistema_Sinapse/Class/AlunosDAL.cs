@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Sistema_Sinapse.Class
 {
@@ -34,6 +35,44 @@ namespace Sistema_Sinapse.Class
             cmd.Parameters.Add("@StatusAluno", MySqlDbType.VarChar, 20).Value = alunos1.StatusAluno;
             cmd.ExecuteNonQuery();
             _mySqlConnection.Close();
+        }
+        public void DeletarAluno(string nomeAluno)
+        {
+            _mySqlConnection.Open();
+            MySqlCommand cmd = _mySqlConnection.CreateCommand();
+            cmd.CommandText = "delete from tb_alunos where alu_nome = '"+nomeAluno+"'";
+            cmd.ExecuteNonQuery();
+            _mySqlConnection.Close();
+        }
+        public void AlterarAluno(Alunos1 alunos1, int idAluno)
+        {
+
+            _mySqlConnection.Open();
+            MySqlCommand cmd = _mySqlConnection.CreateCommand();
+            cmd.CommandText = "update tb_alunos set alu_nome=@nomeAluno, alu_datanasc = @dataNascimento,alu_cpf = @alunoCPF, id_alu_turma=@IdTurma, alu_responsavel=@Responsavel,alu_telefoneResp=@TelefoneResp,alu_cpfResp=@cpfResp,alu_valorMensalidade=@ValorMensalidade,alu_statusAluno=@statusAluno where alu_id='"+ idAluno + "'";
+            cmd.Parameters.Add("@nomeAluno", MySqlDbType.VarChar, 150).Value = alunos1.Nome;
+            cmd.Parameters.Add("@dataNascimento", MySqlDbType.DateTime, 10).Value = alunos1.DataNasc;
+            cmd.Parameters.Add("@alunoCPF", MySqlDbType.VarChar, 150).Value = alunos1.Cpf;
+            cmd.Parameters.Add("@IdTurma", MySqlDbType.Int32, 10).Value = alunos1.idAluTurma;
+            cmd.Parameters.Add("@Responsavel", MySqlDbType.VarChar, 150).Value = alunos1.Responsavel;
+            cmd.Parameters.Add("@TelefoneResp", MySqlDbType.VarChar, 150).Value = alunos1.TelefoneResponsavel;
+            cmd.Parameters.Add("@cpfResp", MySqlDbType.VarChar, 150).Value = alunos1.CpfResponsavel;
+            cmd.Parameters.Add("@ValorMensalidade", MySqlDbType.Decimal, 10).Value = alunos1.ValorMensalidade;
+            cmd.Parameters.Add("@statusAluno", MySqlDbType.VarChar, 150).Value = alunos1.StatusAluno;
+
+            cmd.ExecuteNonQuery();
+            _mySqlConnection.Close();
+        }
+        public int ObterIdAluno(string nome)
+        {
+            _mySqlConnection.Open();
+            MySqlCommand cmd = _mySqlConnection.CreateCommand();
+            cmd.CommandText = "select alu_id from tb_alunos where alu_nome='"+nome+"'";
+            var returnScalar = cmd.ExecuteScalar();
+            _mySqlConnection.Close();
+            int idAluno = Convert.ToInt32(returnScalar);
+            return idAluno;
+
         }
         public DataSet dataSet(string query)
         {

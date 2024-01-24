@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Sistema_Sinapse.Class
 {
@@ -42,20 +43,30 @@ namespace Sistema_Sinapse.Class
             int idProf = Convert.ToInt32(returnScalar);
             return idProf;
         }
+        public string obterNomePeloID(int id)
+        {
+            _mySqlConnection.Open();
+            MySqlCommand cmd = _mySqlConnection.CreateCommand();
+            cmd.CommandText = "select tur_nome from tb_turmas where tur_id = '" + id + "'";
+            var returnScalar = cmd.ExecuteScalar();
+            _mySqlConnection.Close();
+            string nomeTurma = Convert.ToString(returnScalar);
+            return nomeTurma;
+        }
         public DataSet dataSet(string query)
         {
             DataSet ds = new DataSet();
             try
             {
-                try
-                {
                     _mySqlConnection.Open();
                     MySqlCommand cmd = new MySqlCommand(query, _mySqlConnection);
                     MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd);
                     adaptador.Fill(ds, "tb_turmas"); // Preenche a tabela
-                }
-                catch { }
             }
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Erro ao obter dados: " + ex.Message);
+            }    
             finally
             {
                 _mySqlConnection.Close(); // Fecha conexão

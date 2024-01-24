@@ -23,6 +23,13 @@ namespace Sistema_Sinapse.View
 
         private void formCadastrarTurma_Load(object sender, EventArgs e)
         {
+
+            dataIncial.Format = DateTimePickerFormat.Custom;
+            dataIncial.CustomFormat = "dd/MM/yyyy";
+
+            dataFinal.Format = DateTimePickerFormat.Custom;
+            dataFinal.CustomFormat = "dd/MM/yyyy";
+
             string connectionString = ConfigurationManager.ConnectionStrings["conexaoBD"].ConnectionString;
            ProfessoresDAL professoresDAL = new ProfessoresDAL(new MySqlConnection(connectionString));
 

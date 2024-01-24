@@ -107,6 +107,7 @@
             this.txtSalario.Name = "txtSalario";
             this.txtSalario.Size = new System.Drawing.Size(119, 20);
             this.txtSalario.TabIndex = 4;
+            this.txtSalario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSalario_KeyPress);
             // 
             // btnRegistrarProf
             // 

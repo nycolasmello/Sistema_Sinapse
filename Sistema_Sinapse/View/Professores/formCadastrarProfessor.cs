@@ -55,7 +55,31 @@ namespace Sistema_Sinapse.View
 
         private void formCadastrarProfessor_Load(object sender, EventArgs e)
         {
+            dataNascimento.Format = DateTimePickerFormat.Custom;
+            dataNascimento.CustomFormat = "dd/MM/yyyy";
+        }
 
+        private void txtSalario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnRegistrarProf_Click(sender, e);
+            }
+            if (e.KeyChar == '.' || e.KeyChar == ',')
+            {
+                //troca o . pela virgula
+                e.KeyChar = '.';
+
+                //Verifica se já existe alguma vírgula na string
+                if (txtSalario.Text.Contains("."))
+                {
+                    e.Handled = true; // Caso exista, aborte 
+                }
+            }
+            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

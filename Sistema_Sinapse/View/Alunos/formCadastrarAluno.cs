@@ -23,14 +23,16 @@ namespace Sistema_Sinapse.View
 
         private void formCadastrarAluno_Load(object sender, EventArgs e)
         {
+            dataNascimento.Format = DateTimePickerFormat.Custom;
+            dataNascimento.CustomFormat = "dd/MM/yyyy";
             string connectionString = ConfigurationManager.ConnectionStrings["conexaoBD"].ConnectionString;
             TurmasDAL turmaDAL = new TurmasDAL(new MySqlConnection(connectionString));
 
-            string listProfessores = "select tur_nome from tb_turmas";
-            var returnDataSet = turmaDAL.dataSet(listProfessores);
+            string listTurmas = "select tur_nome from tb_turmas";
+            var returnDataSet = turmaDAL.dataSet(listTurmas);
             this.cmbTurma.DisplayMember = "tur_nome";
             this.cmbTurma.ValueMember = "tur_id";
-            this.cmbTurma.DataSource = returnDataSet.Tables["tb_professores"];
+            this.cmbTurma.DataSource = returnDataSet.Tables["tb_turmas"];
 
         }
 
@@ -72,6 +74,29 @@ namespace Sistema_Sinapse.View
             catch (Exception ex)
             {
                 MessageBox.Show("" + ex);
+            }
+        }
+
+        private void txtValorMensalidade_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnRegistrarAluno_Click(sender, e);
+            }
+            if (e.KeyChar == '.' || e.KeyChar == ',')
+            {
+                //troca o . pela virgula
+                e.KeyChar = '.';
+
+                //Verifica se já existe alguma vírgula na string
+                if (txtValorMensalidade.Text.Contains("."))
+                {
+                    e.Handled = true; // Caso exista, aborte 
+                }
+            }
+            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
+            {
+                e.Handled = true;
             }
         }
     }
