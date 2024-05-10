@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace Sistema_Sinapse.Model
 {
-    public class Turmas
+    public class Turmas1
     {
         public string Nome { get; set; }
         public int IdProf { get; set; }
-        public DateTime HoraInicial { get; set; }
-        public DateTime HoraFinal { get; set; }
-        
+        public string HoraInicial { get; set; }
+        public string HoraFinal { get; set; }      
         public string DiaSemana { get; set; }
 
-        public Turmas(string nome, int idProf, DateTime dataInicial, DateTime dataFinal, string diaSemana)
+        public Turmas1(string nome, int idProf, string dataInicial, string dataFinal, string diaSemana)
         {
             Nome = nome;
             IdProf= idProf;

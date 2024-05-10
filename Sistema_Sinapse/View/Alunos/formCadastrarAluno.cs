@@ -25,14 +25,26 @@ namespace Sistema_Sinapse.View
         {
             dataNascimento.Format = DateTimePickerFormat.Custom;
             dataNascimento.CustomFormat = "dd/MM/yyyy";
+
             string connectionString = ConfigurationManager.ConnectionStrings["conexaoBD"].ConnectionString;
             TurmasDAL turmaDAL = new TurmasDAL(new MySqlConnection(connectionString));
+            OpcoesAulaDAL opcoesDAL = new OpcoesAulaDAL(new MySqlConnection(connectionString));
 
+            //Lista as Turmas cadastradas (Turma: SEG-TER-QUA) etc...
             string listTurmas = "select tur_nome from tb_turmas";
             var returnDataSet = turmaDAL.dataSet(listTurmas);
             this.cmbTurma.DisplayMember = "tur_nome";
             this.cmbTurma.ValueMember = "tur_id";
             this.cmbTurma.DataSource = returnDataSet.Tables["tb_turmas"];
+
+
+            //Lista as Opcoes (2 vezes na semana) (1 vez na semana)
+            string listOpcoes = "select opc_descricao from tb_opcoes";
+            var returDataSet1 = opcoesDAL.dataSet(listOpcoes);
+            this.cmbOpcoes.DisplayMember = "opc_descricao";
+            this.cmbOpcoes.ValueMember = "opc_id";
+            this.cmbOpcoes.DataSource = returDataSet1.Tables["tb_opcoes"];
+
 
         }
 
@@ -41,24 +53,28 @@ namespace Sistema_Sinapse.View
             string connectionString = ConfigurationManager.ConnectionStrings["conexaoBD"].ConnectionString;
             AlunosDAL alunosDAL = new AlunosDAL(new MySqlConnection(connectionString));
             TurmasDAL turmaDAL = new TurmasDAL(new MySqlConnection(connectionString));
+            OpcoesAulaDAL opcoesDAL = new OpcoesAulaDAL(new MySqlConnection(connectionString));
             var Data = dataNascimento.Value;
+            DateTime dataReg = DateTime.Now;
             int idTurma = turmaDAL.obterIdPeloNome(cmbTurma.Text);
-            decimal valorMensal = Convert.ToDecimal(txtValorMensalidade.Text);
+            int idOpcao = opcoesDAL.obterIDPeloNome(cmbOpcoes.Text);
 
             try
             {
-               
-
+                
                 Alunos1 alunos1 = new Alunos1(
                     txtNomeAluno.Text,
                     Data,
                     txtCpfAluno.Text,
+                    txtRgAluno.Text,
                     idTurma,
                     txtNomeResponsavel.Text,
                     txtTelefoneResponsavel.Text,
                     txtCpfResponsavel.Text,
-                    valorMensal,
-                    cmbStatusAluno.Text
+                    txtRgResponsavel.Text,
+                    cmbStatusAluno.Text,
+                    dataReg,
+                    idOpcao
                     );
                 alunosDAL.InserirAluno(alunos1);
                 MessageBox.Show("Aluno Registrado");
@@ -67,7 +83,6 @@ namespace Sistema_Sinapse.View
                 txtNomeResponsavel.Text = "";
                 txtCpfAluno.Text = "";
                 txtCpfResponsavel.Text = "";
-                txtValorMensalidade.Text = "";
                 txtNomeAluno.Select();
                 txtNomeAluno.Focus();
             }
@@ -77,27 +92,6 @@ namespace Sistema_Sinapse.View
             }
         }
 
-        private void txtValorMensalidade_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                btnRegistrarAluno_Click(sender, e);
-            }
-            if (e.KeyChar == '.' || e.KeyChar == ',')
-            {
-                //troca o . pela virgula
-                e.KeyChar = '.';
-
-                //Verifica se já existe alguma vírgula na string
-                if (txtValorMensalidade.Text.Contains("."))
-                {
-                    e.Handled = true; // Caso exista, aborte 
-                }
-            }
-            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
-            {
-                e.Handled = true;
-            }
-        }
+  
     }
 }

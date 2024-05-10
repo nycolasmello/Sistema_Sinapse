@@ -6,67 +6,62 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Sistema_Sinapse.Class
 {
-    public class TurmasDAL
+    public class OpcoesAulaDAL
     {
         private MySqlConnection _mySqlConnection;
 
-        public TurmasDAL(MySqlConnection mySqlConnection)
+        public OpcoesAulaDAL(MySqlConnection mySqlConnection)
         {
             _mySqlConnection = mySqlConnection;
         }
-
-        public void registrarTurma(Turmas1 turmas)
+        
+        public void registrarOpcao(OpcoesAula1 opcoes)
         {
             _mySqlConnection.Open();
             MySqlCommand cmd = _mySqlConnection.CreateCommand();
-            cmd.CommandText = "insert into tb_turmas (tur_nome,tur_id_professor,tur_horarioInicial,tur_horarioFinal,tur_diaSemana) values (@Nome,@idProfessor,@horarioInicial,@horarioFinal,@diaSemana)";
-            cmd.Parameters.Add("@Nome", MySqlDbType.VarChar, 150).Value = turmas.Nome;
-            cmd.Parameters.Add("@idProfessor", MySqlDbType.Int32, 10).Value = turmas.IdProf;
-            cmd.Parameters.Add("@horarioInicial", MySqlDbType.VarChar, 100).Value = turmas.HoraInicial;
-            cmd.Parameters.Add("@horarioFinal", MySqlDbType.VarChar, 100).Value = turmas.HoraFinal;
-            cmd.Parameters.Add("@diaSemana", MySqlDbType.VarChar, 200).Value = turmas.DiaSemana;
+            cmd.CommandText = "insert into tb_opcoes(opc_descricao,opc_duracao) values (@Descricao,@Duracao)";
+            cmd.Parameters.Add("@Descricao", MySqlDbType.VarChar, 500).Value = opcoes.Descricao;
+            cmd.Parameters.Add("@Duracao", MySqlDbType.VarChar, 50).Value = opcoes.Duracao;
             cmd.ExecuteNonQuery();
             _mySqlConnection.Close();
-        }
 
-        public int obterIdPeloNome(string nome)
-        {
-            _mySqlConnection.Open();
-            MySqlCommand cmd = _mySqlConnection.CreateCommand();
-            cmd.CommandText = "select tur_id from tb_turmas where tur_nome = '" + nome + "'";
-            var returnScalar = cmd.ExecuteScalar();
-            _mySqlConnection.Close();
-            int idProf = Convert.ToInt32(returnScalar);
-            return idProf;
         }
-        public string obterNomePeloID(int id)
+        public int obterIDPeloNome(string nome)
         {
             _mySqlConnection.Open();
             MySqlCommand cmd = _mySqlConnection.CreateCommand();
-            cmd.CommandText = "select tur_nome from tb_turmas where tur_id = '" + id + "'";
-            var returnScalar = cmd.ExecuteScalar();
+            cmd.CommandText = "select opc_id from tb_opcoes where opc_descricao = '" + nome + "'";
+            var returnScalar  = cmd.ExecuteScalar();
             _mySqlConnection.Close();
-            string nomeTurma = Convert.ToString(returnScalar);
-            return nomeTurma;
+            int id = Convert.ToInt32(returnScalar);
+            return id;
+            
+        }
+        public void DeletarOpcao(string nome)
+        {
+            _mySqlConnection.Open();
+            MySqlCommand cmd = _mySqlConnection.CreateCommand();
+            cmd.CommandText = "delete from tb_opcoes where opc_descricao = '" + nome + "'";
+            cmd.ExecuteNonQuery();
+            _mySqlConnection.Close();
         }
         public DataSet dataSet(string query)
         {
             DataSet ds = new DataSet();
             try
             {
+                try
+                {
                     _mySqlConnection.Open();
                     MySqlCommand cmd = new MySqlCommand(query, _mySqlConnection);
                     MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd);
-                    adaptador.Fill(ds, "tb_turmas"); // Preenche a tabela
+                    adaptador.Fill(ds, "tb_opcoes"); // Preenche a tabela
+                }
+                catch { }
             }
-            catch (Exception ex) 
-            {
-                MessageBox.Show("Erro ao obter dados: " + ex.Message);
-            }    
             finally
             {
                 _mySqlConnection.Close(); // Fecha conexão
@@ -95,5 +90,18 @@ namespace Sistema_Sinapse.Class
             }
             return data; // Retorna um datatable com todos dados      
         }
+
+        public void AlterarOpcoes(OpcoesAula1 opcoes, int idOpcao)
+        {
+            _mySqlConnection.Open();
+            MySqlCommand cmd = _mySqlConnection.CreateCommand();
+            cmd.CommandText = "update tb_opcoes set opc_descricao=@Descricao,opc_duracao=@Duracao where opc_id='" + idOpcao + "'";
+            cmd.Parameters.Add("@Descricao", MySqlDbType.VarChar, 150).Value = opcoes.Descricao;
+            cmd.Parameters.Add("@Duracao", MySqlDbType.VarChar, 50).Value = opcoes.Duracao;         
+            cmd.ExecuteNonQuery();
+            _mySqlConnection.Close();
+
+        }
+
     }
 }

@@ -23,16 +23,19 @@ namespace Sistema_Sinapse.Class
         {
             _mySqlConnection.Open ();
             MySqlCommand cmd = _mySqlConnection.CreateCommand();
-            cmd.CommandText = "insert into tb_alunos (alu_nome,alu_datanasc,alu_cpf,id_alu_turma,alu_responsavel,alu_telefoneResp, alu_cpfResp,alu_ValorMensalidade,alu_statusAluno) values (@Nome,@DataNasc,@Cpf,@idAluTurma,@Responsavel,@TelefoneResp,@CpfResp,@ValorMensalidade,@StatusAluno)";
-            cmd.Parameters.Add("@Nome", MySqlDbType.VarChar, 150).Value = alunos1.Nome;
-            cmd.Parameters.Add("@DataNasc", MySqlDbType.DateTime, 10).Value = alunos1.DataNasc;
+            cmd.CommandText = "insert into tb_alunos (alu_nome,alu_datanasc,alu_cpf,alu_rg,id_alu_turma,alu_responsavel,alu_telefoneResp, alu_cpfResp,alu_rgResponsavel,alu_statusAluno,alu_DataRegistro,id_alu_opcao) values (@nomeAluno,@DataNasc,@Cpf,@alunoRG,@IdTurma,@Responsavel,@TelefoneResp,@CpfResp,@rgResponsavel,@StatusAluno,@DataRegistro,@idAluOpcao)";
+            cmd.Parameters.Add("@nomeAluno", MySqlDbType.VarChar, 150).Value = alunos1.Nome;
+            cmd.Parameters.Add("@DataNasc", MySqlDbType.Date, 10).Value = alunos1.DataNasc;
             cmd.Parameters.Add("@Cpf", MySqlDbType.VarChar, 150).Value = alunos1.Cpf;
-            cmd.Parameters.Add("@idAluTurma", MySqlDbType.Int32, 10).Value = alunos1.idAluTurma;
+            cmd.Parameters.Add("@alunoRG", MySqlDbType.VarChar, 150).Value = alunos1.Rg;
+            cmd.Parameters.Add("@IdTurma", MySqlDbType.Int32, 10).Value = alunos1.idAluTurma;
             cmd.Parameters.Add("@Responsavel", MySqlDbType.VarChar, 150).Value = alunos1.Responsavel;
             cmd.Parameters.Add("@TelefoneResp", MySqlDbType.VarChar, 150).Value = alunos1.TelefoneResponsavel;
-            cmd.Parameters.Add("@CpfResp", MySqlDbType.VarChar, 150).Value = alunos1.CpfResponsavel;
-            cmd.Parameters.Add("@ValorMensalidade", MySqlDbType.Decimal, 10).Value = alunos1.ValorMensalidade;
-            cmd.Parameters.Add("@StatusAluno", MySqlDbType.VarChar, 20).Value = alunos1.StatusAluno;
+            cmd.Parameters.Add("@cpfResp", MySqlDbType.VarChar, 150).Value = alunos1.CpfResponsavel;
+            cmd.Parameters.Add("@rgResponsavel", MySqlDbType.VarChar, 150).Value = alunos1.Rg;
+            cmd.Parameters.Add("@StatusAluno", MySqlDbType.VarChar, 150).Value = alunos1.StatusAluno;
+            cmd.Parameters.Add("@DataRegistro", MySqlDbType.Date, 10).Value = alunos1.DataRegistro;
+            cmd.Parameters.Add("@idAluOpcao", MySqlDbType.Int32, 10).Value = alunos1.idAluOpcao;
             cmd.ExecuteNonQuery();
             _mySqlConnection.Close();
         }
@@ -49,17 +52,19 @@ namespace Sistema_Sinapse.Class
 
             _mySqlConnection.Open();
             MySqlCommand cmd = _mySqlConnection.CreateCommand();
-            cmd.CommandText = "update tb_alunos set alu_nome=@nomeAluno, alu_datanasc = @dataNascimento,alu_cpf = @alunoCPF, id_alu_turma=@IdTurma, alu_responsavel=@Responsavel,alu_telefoneResp=@TelefoneResp,alu_cpfResp=@cpfResp,alu_valorMensalidade=@ValorMensalidade,alu_statusAluno=@statusAluno where alu_id='"+ idAluno + "'";
+            cmd.CommandText = "update tb_alunos set alu_nome=@nomeAluno, alu_datanasc = @dataNascimento,alu_cpf = @alunoCPF,alu_rg=@alunoRG, id_alu_turma=@IdTurma, alu_responsavel=@Responsavel,alu_telefoneResp=@TelefoneResp,alu_cpfResp=@cpfResp,alu_rgResponsavel=@rgResponsavel,alu_statusAluno=@statusAluno, alu_DataRegistro=@DataRegistro, id_alu_opcao=@idAluOpcao where alu_id='" + idAluno + "'";
             cmd.Parameters.Add("@nomeAluno", MySqlDbType.VarChar, 150).Value = alunos1.Nome;
-            cmd.Parameters.Add("@dataNascimento", MySqlDbType.DateTime, 10).Value = alunos1.DataNasc;
+            cmd.Parameters.Add("@dataNascimento", MySqlDbType.Date, 10).Value = alunos1.DataNasc;
             cmd.Parameters.Add("@alunoCPF", MySqlDbType.VarChar, 150).Value = alunos1.Cpf;
+            cmd.Parameters.Add("@alunoRG", MySqlDbType.VarChar, 150).Value = alunos1.Rg;
             cmd.Parameters.Add("@IdTurma", MySqlDbType.Int32, 10).Value = alunos1.idAluTurma;
             cmd.Parameters.Add("@Responsavel", MySqlDbType.VarChar, 150).Value = alunos1.Responsavel;
             cmd.Parameters.Add("@TelefoneResp", MySqlDbType.VarChar, 150).Value = alunos1.TelefoneResponsavel;
             cmd.Parameters.Add("@cpfResp", MySqlDbType.VarChar, 150).Value = alunos1.CpfResponsavel;
-            cmd.Parameters.Add("@ValorMensalidade", MySqlDbType.Decimal, 10).Value = alunos1.ValorMensalidade;
+            cmd.Parameters.Add("@rgResponsavel", MySqlDbType.VarChar, 150).Value = alunos1.Rg;
             cmd.Parameters.Add("@statusAluno", MySqlDbType.VarChar, 150).Value = alunos1.StatusAluno;
-
+            cmd.Parameters.Add("@DataRegistro", MySqlDbType.Date, 10).Value = alunos1.DataRegistro;
+            cmd.Parameters.Add("@idAluOpcao", MySqlDbType.Int32, 10).Value = alunos1.idAluOpcao;
             cmd.ExecuteNonQuery();
             _mySqlConnection.Close();
         }
@@ -73,6 +78,16 @@ namespace Sistema_Sinapse.Class
             int idAluno = Convert.ToInt32(returnScalar);
             return idAluno;
 
+        }
+        public DateTime SelecionarDataRegistroPeloNome(string nome)
+        {
+            _mySqlConnection.Open();
+            MySqlCommand cmd = _mySqlConnection.CreateCommand();
+            cmd.CommandText = "select alu_DataRegistro from tb_alunos where alu_nome ='" + nome + "'";
+            var returnScalar = cmd.ExecuteScalar();
+            _mySqlConnection.Close();
+            DateTime data = Convert.ToDateTime(returnScalar);
+            return data;
         }
         public DataSet dataSet(string query)
         {
@@ -101,14 +116,12 @@ namespace Sistema_Sinapse.Class
 
             try
             {
-                try
-                {
+
                     _mySqlConnection.Open();
                     MySqlCommand cmd = new MySqlCommand(query, _mySqlConnection);
                     MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd);
                     adaptador.Fill(data); // Preenche a tabela
-                }
-                catch { }
+
             }
             finally
             {

@@ -2,71 +2,68 @@
 using Sistema_Sinapse.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Sistema_Sinapse.Class
 {
-    public class TurmasDAL
+    public class ValoresDAL
     {
         private MySqlConnection _mySqlConnection;
 
-        public TurmasDAL(MySqlConnection mySqlConnection)
+        public ValoresDAL(MySqlConnection mySqlConnection)
         {
             _mySqlConnection = mySqlConnection;
         }
 
-        public void registrarTurma(Turmas1 turmas)
+        public void RegistrarValor(Valores1 valores)
         {
             _mySqlConnection.Open();
             MySqlCommand cmd = _mySqlConnection.CreateCommand();
-            cmd.CommandText = "insert into tb_turmas (tur_nome,tur_id_professor,tur_horarioInicial,tur_horarioFinal,tur_diaSemana) values (@Nome,@idProfessor,@horarioInicial,@horarioFinal,@diaSemana)";
-            cmd.Parameters.Add("@Nome", MySqlDbType.VarChar, 150).Value = turmas.Nome;
-            cmd.Parameters.Add("@idProfessor", MySqlDbType.Int32, 10).Value = turmas.IdProf;
-            cmd.Parameters.Add("@horarioInicial", MySqlDbType.VarChar, 100).Value = turmas.HoraInicial;
-            cmd.Parameters.Add("@horarioFinal", MySqlDbType.VarChar, 100).Value = turmas.HoraFinal;
-            cmd.Parameters.Add("@diaSemana", MySqlDbType.VarChar, 200).Value = turmas.DiaSemana;
+            cmd.CommandText = "insert into tb_valoresaula (val_periodo,val_valor,val_id_opcao) values (@Periodo,@Valor,@idOpcao)";
+            cmd.Parameters.Add("@Periodo", MySqlDbType.VarChar, 150).Value = valores.periodo;
+            cmd.Parameters.Add("@Valor", MySqlDbType.Decimal, 20).Value = valores.valor;
+            cmd.Parameters.Add("@idOpcao", MySqlDbType.Int32, 10).Value = valores.idOpcao;
             cmd.ExecuteNonQuery();
             _mySqlConnection.Close();
         }
-
-        public int obterIdPeloNome(string nome)
+        public void AlterarValor(Valores1 valores, string periodo,int idOpcao)
         {
             _mySqlConnection.Open();
             MySqlCommand cmd = _mySqlConnection.CreateCommand();
-            cmd.CommandText = "select tur_id from tb_turmas where tur_nome = '" + nome + "'";
-            var returnScalar = cmd.ExecuteScalar();
+            cmd.CommandText = "update tb_valoresaula set val_periodo=@Periodo,val_valor=@Valor,val_id_opcao=@idOpcao where val_nome='" + periodo+"', and val_id_opcao='" + idOpcao + "'";
+            cmd.Parameters.Add("@Periodo", MySqlDbType.VarChar, 150).Value = valores.periodo;
+            cmd.Parameters.Add("@Valor", MySqlDbType.Decimal, 9).Value = valores.valor;
+            cmd.Parameters.Add("@idOpcao", MySqlDbType.Int32, 10).Value = valores.idOpcao;
+            cmd.ExecuteNonQuery();
             _mySqlConnection.Close();
-            int idProf = Convert.ToInt32(returnScalar);
-            return idProf;
         }
-        public string obterNomePeloID(int id)
+        public void DeletarOpcao(string periodo,int idOpcao) 
         {
             _mySqlConnection.Open();
             MySqlCommand cmd = _mySqlConnection.CreateCommand();
-            cmd.CommandText = "select tur_nome from tb_turmas where tur_id = '" + id + "'";
-            var returnScalar = cmd.ExecuteScalar();
+            cmd.CommandText = "delete from tb_valoresaula where val_periodo='"+ periodo + "' and val_id_opcao = '"+idOpcao+"'";
+            cmd.ExecuteNonQuery();
             _mySqlConnection.Close();
-            string nomeTurma = Convert.ToString(returnScalar);
-            return nomeTurma;
+        
         }
         public DataSet dataSet(string query)
         {
             DataSet ds = new DataSet();
             try
             {
+                try
+                {
                     _mySqlConnection.Open();
                     MySqlCommand cmd = new MySqlCommand(query, _mySqlConnection);
                     MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd);
-                    adaptador.Fill(ds, "tb_turmas"); // Preenche a tabela
+                    adaptador.Fill(ds, "tb_valoresaula"); // Preenche a tabela
+                }
+                catch { }
             }
-            catch (Exception ex) 
-            {
-                MessageBox.Show("Erro ao obter dados: " + ex.Message);
-            }    
             finally
             {
                 _mySqlConnection.Close(); // Fecha conexão
@@ -95,5 +92,6 @@ namespace Sistema_Sinapse.Class
             }
             return data; // Retorna um datatable com todos dados      
         }
+
     }
 }

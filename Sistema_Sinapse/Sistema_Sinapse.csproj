@@ -10,7 +10,7 @@
     <AssemblyName>Sistema_Sinapse</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>C:\Users\Administrator\source\repos\Sistema_Sinapse\Sistema_Sinapse\published\</PublishUrl>
@@ -26,7 +26,7 @@
     <InstallUrl>https://raw.githubusercontent.com/nycolasmello/Sistema_Sinapse/master/Sistema_Sinapse/published/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -62,6 +62,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>cerebro.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
@@ -130,8 +133,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\AlunosDAL.cs" />
+    <Compile Include="Class\OpcoesAulaDAL.cs" />
     <Compile Include="Class\ProfessoresDAL.cs" />
     <Compile Include="Class\TurmasDAL.cs" />
+    <Compile Include="Class\ValoresDAL.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,8 +144,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Alunos.cs" />
+    <Compile Include="Model\OpcoesAula.cs" />
     <Compile Include="Model\Professores.cs" />
     <Compile Include="Model\Turmas.cs" />
+    <Compile Include="Model\Valores.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Alunos\formCadastrarAluno.cs">
@@ -155,11 +162,71 @@
     <Compile Include="View\Alunos\formConsultarAlunos.Designer.cs">
       <DependentUpon>formConsultarAlunos.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Alunos\formContratosAlunos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Alunos\formContratosAlunos.Designer.cs">
+      <DependentUpon>formContratosAlunos.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Alunos\formEditarAlunos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\Alunos\formEditarAlunos.Designer.cs">
       <DependentUpon>formEditarAlunos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Alunos\Historico Aluno\formHistoricoAluno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Alunos\Historico Aluno\formHistoricoAluno.Designer.cs">
+      <DependentUpon>formHistoricoAluno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Contratos\formGerarContratoAluno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Contratos\formGerarContratoAluno.Designer.cs">
+      <DependentUpon>formGerarContratoAluno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Contratos\formGerarContratoProfessor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Contratos\formGerarContratoProfessor.Designer.cs">
+      <DependentUpon>formGerarContratoProfessor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Opcoes\formConsultarOpcoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Opcoes\formConsultarOpcoes.Designer.cs">
+      <DependentUpon>formConsultarOpcoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Opcoes\formEditarOpcoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Opcoes\formEditarOpcoes.Designer.cs">
+      <DependentUpon>formEditarOpcoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Opcoes\formRegistrarOpcoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Opcoes\formRegistrarOpcoes.Designer.cs">
+      <DependentUpon>formRegistrarOpcoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Valores\formConsultarValores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Valores\formConsultarValores.Designer.cs">
+      <DependentUpon>formConsultarValores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Valores\formEditarValores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Valores\formEditarValores.Designer.cs">
+      <DependentUpon>formEditarValores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Valores\formRegistrarValores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Opcoes Contratos\Valores\formRegistrarValores.Designer.cs">
+      <DependentUpon>formRegistrarValores.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Professores\formCadastrarProfessor.cs">
       <SubType>Form</SubType>
@@ -167,11 +234,29 @@
     <Compile Include="View\Professores\formCadastrarProfessor.Designer.cs">
       <DependentUpon>formCadastrarProfessor.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Professores\formConsultarProfessores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Professores\formConsultarProfessores.Designer.cs">
+      <DependentUpon>formConsultarProfessores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Professores\formEditarProfessores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Professores\formEditarProfessores.Designer.cs">
+      <DependentUpon>formEditarProfessores.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Turmas\formCadastrarTurma.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\Turmas\formCadastrarTurma.Designer.cs">
       <DependentUpon>formCadastrarTurma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Turmas\formConsultarTurmas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Turmas\formConsultarTurmas.Designer.cs">
+      <DependentUpon>formConsultarTurmas.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -195,11 +280,44 @@
     <EmbeddedResource Include="View\Alunos\formEditarAlunos.resx">
       <DependentUpon>formEditarAlunos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Alunos\Historico Aluno\formHistoricoAluno.resx">
+      <DependentUpon>formHistoricoAluno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Contratos\formGerarContratoAluno.resx">
+      <DependentUpon>formGerarContratoAluno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Opcoes Contratos\Opcoes\formConsultarOpcoes.resx">
+      <DependentUpon>formConsultarOpcoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Opcoes Contratos\Opcoes\formEditarOpcoes.resx">
+      <DependentUpon>formEditarOpcoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Opcoes Contratos\Opcoes\formRegistrarOpcoes.resx">
+      <DependentUpon>formRegistrarOpcoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Opcoes Contratos\Valores\formConsultarValores.resx">
+      <DependentUpon>formConsultarValores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Opcoes Contratos\Valores\formEditarValores.resx">
+      <DependentUpon>formEditarValores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Opcoes Contratos\Valores\formRegistrarValores.resx">
+      <DependentUpon>formRegistrarValores.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Professores\formCadastrarProfessor.resx">
       <DependentUpon>formCadastrarProfessor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Professores\formConsultarProfessores.resx">
+      <DependentUpon>formConsultarProfessores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Professores\formEditarProfessores.resx">
+      <DependentUpon>formEditarProfessores.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Turmas\formCadastrarTurma.resx">
       <DependentUpon>formCadastrarTurma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Turmas\formConsultarTurmas.resx">
+      <DependentUpon>formConsultarTurmas.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -233,6 +351,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cerebro.ico" />
+    <None Include="Resources\historia %281%29.png" />
+    <None Include="Resources\historia.png" />
     <None Include="Resources\lixo %282%29.png" />
     <None Include="Resources\lixo %281%29.png" />
     <None Include="Resources\editar %282%29.png" />

@@ -103,6 +103,26 @@ namespace Sistema_Sinapse.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap historia {
+            get {
+                object obj = ResourceManager.GetObject("historia", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap historia__1_ {
+            get {
+                object obj = ResourceManager.GetObject("historia (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lixo {
             get {
                 object obj = ResourceManager.GetObject("lixo", resourceCulture);

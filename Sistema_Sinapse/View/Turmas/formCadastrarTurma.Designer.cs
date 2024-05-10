@@ -31,14 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formCadastrarTurma));
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.dataIncial = new System.Windows.Forms.DateTimePicker();
-            this.dataFinal = new System.Windows.Forms.DateTimePicker();
             this.registrarTurma = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNomeTurma = new System.Windows.Forms.TextBox();
             this.cmbProfessores = new System.Windows.Forms.ComboBox();
             this.listaSemana = new System.Windows.Forms.CheckedListBox();
+            this.txtHorarioInicial = new System.Windows.Forms.TextBox();
+            this.txtHorarioFinal = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label3
@@ -58,22 +58,6 @@
             this.label4.Size = new System.Drawing.Size(66, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "Horário Final";
-            // 
-            // dataIncial
-            // 
-            this.dataIncial.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dataIncial.Location = new System.Drawing.Point(15, 135);
-            this.dataIncial.Name = "dataIncial";
-            this.dataIncial.Size = new System.Drawing.Size(165, 20);
-            this.dataIncial.TabIndex = 6;
-            // 
-            // dataFinal
-            // 
-            this.dataFinal.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dataFinal.Location = new System.Drawing.Point(15, 188);
-            this.dataFinal.Name = "dataFinal";
-            this.dataFinal.Size = new System.Drawing.Size(165, 20);
-            this.dataFinal.TabIndex = 7;
             // 
             // registrarTurma
             // 
@@ -135,19 +119,35 @@
             this.listaSemana.Click += new System.EventHandler(this.listaSemana_Click);
             this.listaSemana.DoubleClick += new System.EventHandler(this.listaSemana_DoubleClick);
             // 
+            // txtHorarioInicial
+            // 
+            this.txtHorarioInicial.Location = new System.Drawing.Point(18, 135);
+            this.txtHorarioInicial.Name = "txtHorarioInicial";
+            this.txtHorarioInicial.Size = new System.Drawing.Size(162, 20);
+            this.txtHorarioInicial.TabIndex = 14;
+            this.txtHorarioInicial.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorarioInicial_KeyPress);
+            // 
+            // txtHorarioFinal
+            // 
+            this.txtHorarioFinal.Location = new System.Drawing.Point(18, 188);
+            this.txtHorarioFinal.Name = "txtHorarioFinal";
+            this.txtHorarioFinal.Size = new System.Drawing.Size(162, 20);
+            this.txtHorarioFinal.TabIndex = 15;
+            this.txtHorarioFinal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorarioFinal_KeyPress);
+            // 
             // formCadastrarTurma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(206, 346);
+            this.Controls.Add(this.txtHorarioFinal);
+            this.Controls.Add(this.txtHorarioInicial);
             this.Controls.Add(this.listaSemana);
             this.Controls.Add(this.cmbProfessores);
             this.Controls.Add(this.txtNomeTurma);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.registrarTurma);
-            this.Controls.Add(this.dataFinal);
-            this.Controls.Add(this.dataIncial);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -165,13 +165,13 @@
         #endregion
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dataIncial;
-        private System.Windows.Forms.DateTimePicker dataFinal;
         private System.Windows.Forms.Button registrarTurma;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNomeTurma;
         private System.Windows.Forms.ComboBox cmbProfessores;
         private System.Windows.Forms.CheckedListBox listaSemana;
+        private System.Windows.Forms.TextBox txtHorarioInicial;
+        private System.Windows.Forms.TextBox txtHorarioFinal;
     }
 }

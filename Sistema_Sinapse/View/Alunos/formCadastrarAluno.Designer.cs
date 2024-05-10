@@ -41,13 +41,17 @@
             this.txtNomeResponsavel = new System.Windows.Forms.TextBox();
             this.txtTelefoneResponsavel = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.txtCpfResponsavel = new System.Windows.Forms.TextBox();
-            this.txtValorMensalidade = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbStatusAluno = new System.Windows.Forms.ComboBox();
             this.btnRegistrarAluno = new System.Windows.Forms.Button();
             this.dataNascimento = new System.Windows.Forms.DateTimePicker();
+            this.txtRgAluno = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtRgResponsavel = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cmbOpcoes = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtNomeAluno
@@ -87,7 +91,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 174);
+            this.label4.Location = new System.Drawing.Point(12, 226);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 4;
@@ -122,7 +126,7 @@
             // 
             this.cmbTurma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTurma.FormattingEnabled = true;
-            this.cmbTurma.Location = new System.Drawing.Point(12, 190);
+            this.cmbTurma.Location = new System.Drawing.Point(12, 242);
             this.cmbTurma.Name = "cmbTurma";
             this.cmbTurma.Size = new System.Drawing.Size(147, 21);
             this.cmbTurma.TabIndex = 9;
@@ -150,15 +154,6 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "CPF Responsável";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(195, 174);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(94, 13);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Valor Mensalidade";
-            // 
             // txtCpfResponsavel
             // 
             this.txtCpfResponsavel.Location = new System.Drawing.Point(197, 140);
@@ -166,18 +161,10 @@
             this.txtCpfResponsavel.Size = new System.Drawing.Size(147, 20);
             this.txtCpfResponsavel.TabIndex = 14;
             // 
-            // txtValorMensalidade
-            // 
-            this.txtValorMensalidade.Location = new System.Drawing.Point(198, 191);
-            this.txtValorMensalidade.Name = "txtValorMensalidade";
-            this.txtValorMensalidade.Size = new System.Drawing.Size(147, 20);
-            this.txtValorMensalidade.TabIndex = 15;
-            this.txtValorMensalidade.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorMensalidade_KeyPress);
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 231);
+            this.label9.Location = new System.Drawing.Point(195, 226);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(82, 13);
             this.label9.TabIndex = 16;
@@ -190,14 +177,14 @@
             this.cmbStatusAluno.Items.AddRange(new object[] {
             "ATIVO",
             "NÃO ATIVO"});
-            this.cmbStatusAluno.Location = new System.Drawing.Point(12, 247);
+            this.cmbStatusAluno.Location = new System.Drawing.Point(195, 242);
             this.cmbStatusAluno.Name = "cmbStatusAluno";
             this.cmbStatusAluno.Size = new System.Drawing.Size(147, 21);
             this.cmbStatusAluno.TabIndex = 17;
             // 
             // btnRegistrarAluno
             // 
-            this.btnRegistrarAluno.Location = new System.Drawing.Point(129, 285);
+            this.btnRegistrarAluno.Location = new System.Drawing.Point(126, 343);
             this.btnRegistrarAluno.Name = "btnRegistrarAluno";
             this.btnRegistrarAluno.Size = new System.Drawing.Size(134, 29);
             this.btnRegistrarAluno.TabIndex = 18;
@@ -213,18 +200,72 @@
             this.dataNascimento.Size = new System.Drawing.Size(147, 20);
             this.dataNascimento.TabIndex = 19;
             // 
+            // txtRgAluno
+            // 
+            this.txtRgAluno.Location = new System.Drawing.Point(15, 191);
+            this.txtRgAluno.Name = "txtRgAluno";
+            this.txtRgAluno.Size = new System.Drawing.Size(147, 20);
+            this.txtRgAluno.TabIndex = 21;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 175);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(23, 13);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "RG";
+            // 
+            // txtRgResponsavel
+            // 
+            this.txtRgResponsavel.Location = new System.Drawing.Point(197, 191);
+            this.txtRgResponsavel.Name = "txtRgResponsavel";
+            this.txtRgResponsavel.Size = new System.Drawing.Size(147, 20);
+            this.txtRgResponsavel.TabIndex = 23;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(195, 175);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(88, 13);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "RG Responsável";
+            // 
+            // cmbOpcoes
+            // 
+            this.cmbOpcoes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbOpcoes.FormattingEnabled = true;
+            this.cmbOpcoes.Location = new System.Drawing.Point(15, 289);
+            this.cmbOpcoes.Name = "cmbOpcoes";
+            this.cmbOpcoes.Size = new System.Drawing.Size(327, 21);
+            this.cmbOpcoes.TabIndex = 24;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(13, 273);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(87, 13);
+            this.label12.TabIndex = 25;
+            this.label12.Text = "Opcao Desejada";
+            // 
             // formCadastrarAluno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 330);
+            this.ClientSize = new System.Drawing.Size(374, 384);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.cmbOpcoes);
+            this.Controls.Add(this.txtRgResponsavel);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.txtRgAluno);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.dataNascimento);
             this.Controls.Add(this.btnRegistrarAluno);
             this.Controls.Add(this.cmbStatusAluno);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.txtValorMensalidade);
             this.Controls.Add(this.txtCpfResponsavel);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtTelefoneResponsavel);
             this.Controls.Add(this.txtNomeResponsavel);
@@ -263,12 +304,16 @@
         private System.Windows.Forms.TextBox txtNomeResponsavel;
         private System.Windows.Forms.TextBox txtTelefoneResponsavel;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtCpfResponsavel;
-        private System.Windows.Forms.TextBox txtValorMensalidade;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cmbStatusAluno;
         private System.Windows.Forms.Button btnRegistrarAluno;
         private System.Windows.Forms.DateTimePicker dataNascimento;
+        private System.Windows.Forms.TextBox txtRgAluno;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtRgResponsavel;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cmbOpcoes;
+        private System.Windows.Forms.Label label12;
     }
 }

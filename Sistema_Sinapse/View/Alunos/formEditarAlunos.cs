@@ -17,19 +17,26 @@ namespace Sistema_Sinapse.View.Alunos
 {
     public partial class formEditarAlunos : Form
     {
-        public formEditarAlunos(string nomeAluno)
+        private formConsultarAlunos formConsultar1;
+        public formEditarAlunos(string nomeAluno, formConsultarAlunos formConsultar)
         {
             InitializeComponent();
             lblNomeAluno.Text = nomeAluno;
+            this.formConsultar1 = formConsultar;
+
         }
 
         private void formEditarAlunos_Load(object sender, EventArgs e)
         {
             dataNascimento.Format = DateTimePickerFormat.Custom;
             dataNascimento.CustomFormat = "dd/MM/yyyy";
+            dataRegistro.Format = DateTimePickerFormat.Custom;
+            dataRegistro.CustomFormat = "dd/MM/yyyy";
+
             string connectionString = ConfigurationManager.ConnectionStrings["conexaoBD"].ConnectionString;
             AlunosDAL alunosDAL = new AlunosDAL(new MySqlConnection(connectionString));
             TurmasDAL turmasDAL = new TurmasDAL(new MySqlConnection(connectionString));
+            OpcoesAulaDAL opcoesDAL = new OpcoesAulaDAL(new MySqlConnection(connectionString));
 
             try
             {
@@ -44,24 +51,32 @@ namespace Sistema_Sinapse.View.Alunos
                 DateTime dataNasc = reader.GetDateTime(2);
                 dataNascimento.Value = dataNasc;
                 txtCpfAluno.Text = reader.GetString(3);
+                txtRgAluno.Text= reader.GetString(4);
+                
 
                 //Função para obter NOME da turma
-                int idTurma = reader.GetInt32(4);
+                int idTurma = reader.GetInt32(5);
                 string query = "select tur_id, tur_nome from tb_turmas";
                 var returnDataSet = turmasDAL.dataSet(query);
                 this.cmbTurma.DisplayMember= "tur_nome";
                 this.cmbTurma.ValueMember = "tur_id";
                 this.cmbTurma.DataSource = returnDataSet.Tables["tb_turmas"];
-                this.cmbTurma.SelectedIndex = idTurma-1;
 
+                txtNomeResponsavel.Text = reader.GetString(6);
+                txtTelefoneResponsavel.Text = reader.GetString(7);
+                txtCpfResponsavel.Text = reader.GetString(8);
+                txtRgResponsavel.Text = reader.GetString(9);
+                cmbStatusAluno.Text = reader.GetString(10);
+                DateTime Data_Registro = reader.GetDateTime(11);
+                dataRegistro.Value = Data_Registro;
+                int idOpcao = reader.GetInt32(12);
+                string query1 = "select opc_descricao from tb_opcoes";
+                var returnDataSet1 = opcoesDAL.dataSet(query1);
+                this.cmbOpcoes.DisplayMember = "opc_descricao";
+                this.cmbOpcoes.ValueMember = "opc_id";
+                this.cmbOpcoes.DataSource = returnDataSet1.Tables["tb_opcoes"];
+                
 
-                txtNomeResponsavel.Text = reader.GetString(5);
-                txtTelefoneResponsavel.Text = reader.GetString(6);
-                txtCpfResponsavel.Text = reader.GetString(7);
-
-                decimal mensalidade = reader.GetDecimal(8);
-                txtValorMensalidade.Text = Convert.ToString(mensalidade);
-                cmbStatusAluno.Text = reader.GetString(9);
 
             }
             catch (Exception ex)
@@ -70,61 +85,55 @@ namespace Sistema_Sinapse.View.Alunos
 
             }
 
+        }   
+
+        private void formEditarAlunos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
 
-        private void btnRegistrarAluno_Click(object sender, EventArgs e)
+        private void formEditarAlunos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+        }
+
+        private void btnRegistrarAluno_Click_1(object sender, EventArgs e)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["conexaoBD"].ConnectionString;
             AlunosDAL alunosDAL = new AlunosDAL(new MySqlConnection(connectionString));
             TurmasDAL turmasDAL = new TurmasDAL(new MySqlConnection(connectionString));
+            OpcoesAulaDAL opcoesDAL = new OpcoesAulaDAL(new MySqlConnection(connectionString));
             string aluno = lblNomeAluno.Text;
             int idAluno = alunosDAL.ObterIdAluno(aluno);
             int idTurma = turmasDAL.obterIdPeloNome(cmbTurma.Text);
+            int idOpcao = opcoesDAL.obterIDPeloNome(cmbOpcoes.Text);
+
             DateTime Data = dataNascimento.Value;
-            decimal mensalidade = Convert.ToDecimal(txtValorMensalidade.Text);
+            //DateTime dataRegistro = alunosDAL.SelecionarDataRegistroPeloNome(aluno);
+            DateTime Data_Registro = dataRegistro.Value;
             try
             {
                 Alunos1 alunos1 = new Alunos1(
                     txtNomeAluno.Text,
                     Data,
                     txtCpfAluno.Text,
+                    txtRgAluno.Text,
                     idTurma,
                     txtNomeResponsavel.Text,
                     txtTelefoneResponsavel.Text,
                     txtCpfResponsavel.Text,
-                    mensalidade,
-                    cmbStatusAluno.Text
+                    txtRgResponsavel.Text,
+                    cmbStatusAluno.Text,
+                    Data_Registro,
+                    idOpcao
                     );
-                alunosDAL.AlterarAluno(alunos1,idAluno);
+                alunosDAL.AlterarAluno(alunos1, idAluno);
                 MessageBox.Show("Aluno Alterado");
+                formConsultar1.AtualizarDataGridView();// Atualiza o DG do Consultar Alunos
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }        
-        }
-
-        private void txtValorMensalidade_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                btnRegistrarAluno_Click(sender, e);
-            }
-            if (e.KeyChar == '.' || e.KeyChar == ',')
-            {
-                //troca o . pela virgula
-                e.KeyChar = '.';
-
-                //Verifica se já existe alguma vírgula na string
-                if (txtValorMensalidade.Text.Contains("."))
-                {
-                    e.Handled = true; // Caso exista, aborte 
-                }
-            }
-            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
-            {
-                e.Handled = true;
             }
         }
     }

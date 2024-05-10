@@ -37,8 +37,10 @@
             this.cmbNomeAluno = new System.Windows.Forms.ComboBox();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn3 = new System.Windows.Forms.DataGridViewImageColumn();
             this.editar = new System.Windows.Forms.DataGridViewImageColumn();
             this.excluir = new System.Windows.Forms.DataGridViewImageColumn();
+            this.historico = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlunos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,10 +68,11 @@
             this.dgvAlunos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvAlunos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.editar,
-            this.excluir});
+            this.excluir,
+            this.historico});
             this.dgvAlunos.EnableHeadersVisualStyles = false;
             this.dgvAlunos.GridColor = System.Drawing.SystemColors.Desktop;
-            this.dgvAlunos.Location = new System.Drawing.Point(12, 42);
+            this.dgvAlunos.Location = new System.Drawing.Point(15, 42);
             this.dgvAlunos.Name = "dgvAlunos";
             this.dgvAlunos.ReadOnly = true;
             this.dgvAlunos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -90,7 +93,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
             this.dgvAlunos.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvAlunos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAlunos.Size = new System.Drawing.Size(996, 537);
+            this.dgvAlunos.Size = new System.Drawing.Size(851, 690);
             this.dgvAlunos.TabIndex = 0;
             this.dgvAlunos.TabStop = false;
             this.dgvAlunos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlunos_CellContentClick);
@@ -135,6 +138,14 @@
             this.dataGridViewImageColumn2.ReadOnly = true;
             this.dataGridViewImageColumn2.Width = 20;
             // 
+            // dataGridViewImageColumn3
+            // 
+            this.dataGridViewImageColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewImageColumn3.HeaderText = "";
+            this.dataGridViewImageColumn3.Image = global::Sistema_Sinapse.Properties.Resources.historia__1_;
+            this.dataGridViewImageColumn3.Name = "dataGridViewImageColumn3";
+            this.dataGridViewImageColumn3.Width = 30;
+            // 
             // editar
             // 
             this.editar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -155,11 +166,20 @@
             this.excluir.ReadOnly = true;
             this.excluir.Width = 20;
             // 
+            // historico
+            // 
+            this.historico.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.historico.HeaderText = "";
+            this.historico.Image = global::Sistema_Sinapse.Properties.Resources.historia__1_;
+            this.historico.Name = "historico";
+            this.historico.ReadOnly = true;
+            this.historico.Width = 30;
+            // 
             // formConsultarAlunos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 591);
+            this.ClientSize = new System.Drawing.Size(893, 744);
             this.Controls.Add(this.cmbNomeAluno);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvAlunos);
@@ -185,5 +205,7 @@
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
         private System.Windows.Forms.DataGridViewImageColumn editar;
         private System.Windows.Forms.DataGridViewImageColumn excluir;
+        private System.Windows.Forms.DataGridViewImageColumn historico;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn3;
     }
 }

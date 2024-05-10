@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Sistema_Sinapse.View
 {
@@ -23,15 +24,8 @@ namespace Sistema_Sinapse.View
 
         private void formCadastrarTurma_Load(object sender, EventArgs e)
         {
-
-            dataIncial.Format = DateTimePickerFormat.Custom;
-            dataIncial.CustomFormat = "dd/MM/yyyy";
-
-            dataFinal.Format = DateTimePickerFormat.Custom;
-            dataFinal.CustomFormat = "dd/MM/yyyy";
-
             string connectionString = ConfigurationManager.ConnectionStrings["conexaoBD"].ConnectionString;
-           ProfessoresDAL professoresDAL = new ProfessoresDAL(new MySqlConnection(connectionString));
+            ProfessoresDAL professoresDAL = new ProfessoresDAL(new MySqlConnection(connectionString));
 
             string listProfessores = "select prof_nome from tb_professores";
             var returnDataSet = professoresDAL.dataSet(listProfessores);
@@ -42,12 +36,12 @@ namespace Sistema_Sinapse.View
 
         private void listaSemana_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void listaSemana_DoubleClick(object sender, EventArgs e)
         {
-            
+
         }
 
         private void registrarTurma_Click(object sender, EventArgs e)
@@ -72,15 +66,13 @@ namespace Sistema_Sinapse.View
             // Exibe os valores marcados (você pode fazer o que quiser com eles)
             var diaSemana = string.Join(",", valoresMarcados);
             int idProfessor = professoresDAL.obterIdPeloNome(cmbProfessores.Text);
-            var DataInicial = dataIncial.Value;
-            var DataFinal = dataFinal.Value;
             try
             {
-                Turmas turmas = new Turmas(
+                Turmas1 turmas = new Turmas1(
                     txtNomeTurma.Text,
                     idProfessor,
-                    DataInicial,
-                    DataFinal,
+                    txtHorarioInicial.Text,
+                    txtHorarioFinal.Text,
                     diaSemana
                     );
                 turmasDAL.registrarTurma(turmas);
@@ -95,6 +87,51 @@ namespace Sistema_Sinapse.View
                 MessageBox.Show("" + ex);
             }
 
+        }
+
+        private void txtHorarioInicial_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            int limiteCaracteres = 5;
+            // Verifica se o comprimento atual excede o limite
+            if (txtHorarioInicial.Text.Length >= limiteCaracteres && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true; // Impede a entrada de caracteres adicionais
+            }
+            // Verifica se o caractere é numérico ou :
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ':')
+            {
+                e.Handled = true; // Ignora o caractere se não for um número ou :
+            }
+
+            // Adiciona a barra automaticamente na posição correta
+            if (char.IsDigit(e.KeyChar) && (txtHorarioInicial.SelectionStart == 2))
+            {
+                txtHorarioInicial.Text += ":";
+                txtHorarioInicial.SelectionStart = txtHorarioInicial.Text.Length; // Move o cursor para o final
+            }
+        }
+
+        private void txtHorarioFinal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int limiteCaracteres = 5;
+            // Verifica se o comprimento atual excede o limite
+            if (txtHorarioFinal.Text.Length >= limiteCaracteres && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true; // Impede a entrada de caracteres adicionais
+            }
+            // Verifica se o caractere é numérico ou :
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ':')
+            {
+                e.Handled = true; // Ignora o caractere se não for um número ou :
+               
+            }
+            // Adiciona a barra automaticamente na posição correta
+            if (char.IsDigit(e.KeyChar) && (txtHorarioFinal.SelectionStart == 2))
+            {
+                txtHorarioFinal.Text += ":";
+                txtHorarioFinal.SelectionStart = txtHorarioFinal.Text.Length; // Move o cursor para o final
+            }
         }
     }
 }

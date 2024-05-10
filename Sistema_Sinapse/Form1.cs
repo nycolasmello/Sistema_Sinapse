@@ -1,5 +1,10 @@
 ﻿using Sistema_Sinapse.View;
 using Sistema_Sinapse.View.Alunos;
+using Sistema_Sinapse.View.Opcoes_Contratos;
+using Sistema_Sinapse.View.Opcoes_Contratos.Opcoes;
+using Sistema_Sinapse.View.Opcoes_Contratos.Valores;
+using Sistema_Sinapse.View.Professores;
+using Sistema_Sinapse.View.Turmas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,6 +46,42 @@ namespace Sistema_Sinapse
         {
             formConsultarAlunos consultarAlunos = new formConsultarAlunos();
             consultarAlunos.Show();
+        }
+
+        private void consultarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            formConsultarProfessores formConsultar = new formConsultarProfessores();
+            formConsultar.Show();
+        }
+
+        private void consultarToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            formConsultarTurmas formConsultar = new formConsultarTurmas();
+            formConsultar.Show();
+        }
+
+        private void registrarOpçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formRegistrarOpcoes formRegistrar = new formRegistrarOpcoes();
+            formRegistrar.Show();
+        }
+
+        private void consultarOpçõesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formConsultarOpcoes formConsultar = new formConsultarOpcoes();
+            formConsultar.Show();
+        }
+
+        private void registrarValoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formRegistrarValores formRegistrar = new formRegistrarValores();
+            formRegistrar.Show();
+        }
+
+        private void consultarValoesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formConsultarValores formConsultar = new formConsultarValores();
+            formConsultar.Show();
         }
     }
 }

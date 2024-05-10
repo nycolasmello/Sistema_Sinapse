@@ -30,7 +30,7 @@ namespace Sistema_Sinapse.View
             ProfessoresDAL professoresDAL = new ProfessoresDAL(new MySqlConnection(connectionString));
             try
             {
-                Professores professores = new Professores(
+                Professores1 professores = new Professores1(
                     txtNome.Text,
                     Data,
                     txtCpf.Text,

@@ -18,7 +18,7 @@ namespace Sistema_Sinapse.Class
         public ProfessoresDAL(MySqlConnection mySqlConnection) {
             _mySqlConnection = mySqlConnection;
         }
-        public void Inserir(Professores professores)
+        public void Inserir(Professores1 professores)
         {
             _mySqlConnection.Open();
             MySqlCommand cmd = _mySqlConnection.CreateCommand();
@@ -63,6 +63,49 @@ namespace Sistema_Sinapse.Class
             }
             return ds;
         }
+        public DataTable dataTable(string query)
+        {
+            // aqui vai o "SELECT * FROM CLIENTES""
+            DataTable data = new DataTable("tabela"); // Cria table com os dados vindos do BD
 
+            try
+            {
+                try
+                {
+                    _mySqlConnection.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, _mySqlConnection);
+                    MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd);
+                    adaptador.Fill(data); // Preenche a tabela
+                }
+                catch { }
+            }
+            finally
+            {
+                _mySqlConnection.Close(); // Fecha conexão
+            }
+            return data; // Retorna um datatable com todos dados      
+        }
+        public void DeletarProfessor(string nomeProfessor)
+        {
+            _mySqlConnection.Open();
+            MySqlCommand cmd = _mySqlConnection.CreateCommand();
+            cmd.CommandText = "delete from tb_professores where prof_nome = '" + nomeProfessor + "'";
+            cmd.ExecuteNonQuery();
+            _mySqlConnection.Close();
+        }
+        public void AlterarProfessor(Professores1 professores, int idProfessor)
+        {
+            _mySqlConnection.Open();
+            MySqlCommand cmd = _mySqlConnection.CreateCommand();
+            cmd.CommandText = "update tb_professores set prof_nome=@Nome, prof_datanasc=@Data, prof_cpf=@Cpf,prof_telefone=@Telefone,prof_salario=@Salario where prof_id='" + idProfessor + "'";
+            cmd.Parameters.Add("@Nome", MySqlDbType.VarChar, 150).Value = professores.Nome;
+            cmd.Parameters.Add("@Data", MySqlDbType.DateTime, 10).Value = professores.DataNasc;
+            cmd.Parameters.Add("@Cpf", MySqlDbType.VarChar, 150).Value = professores.Cpf;
+            cmd.Parameters.Add("@Telefone", MySqlDbType.VarChar, 150).Value = professores.Telefone;
+            cmd.Parameters.Add("@Salario", MySqlDbType.Decimal, 150).Value = professores.Salario;
+            cmd.ExecuteNonQuery();
+            _mySqlConnection.Close();
+
+        }
     }
 }
